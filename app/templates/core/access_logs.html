@@ -1,0 +1,47 @@
+{% extends "./base/base.html" %}
+
+{% block styles %}
+    {{super()}}
+{% endblock %}
+
+{% block content %}
+    {{super()}}
+    <div class="container">
+        <div class="row">   
+            <div class="col-md-6">
+                <h3>Access Logs</h3>  
+                <table class="table">
+                    <thead class="default-color white-text">
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+    
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if access_logs %}
+                        {% for log in access_logs %}
+                        <tr>
+                            <td>{{log.user.email}}</td>
+                            <td>{{log.created_at.date()}}</td>
+                            <td>{{(log.created_at.time())}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No access log exists</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>       
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{super()}}
+
+{% endblock %}

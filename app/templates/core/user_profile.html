@@ -1,0 +1,92 @@
+{% extends "./base/base.html" %}
+
+{% block styles %}
+    {{super()}}
+{% endblock %}
+
+{% block content %}
+    {{super()}}
+    <div class="container">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Error!</h4>
+                <p>{{error}}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <hr>
+            </div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Success!</h4>
+                <p>{{success}}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <hr>
+            </div>
+            {% endif %}
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Card -->
+                <div class="card">
+
+                    <!-- Card image -->
+                    <img class="card-img-top" src="https://i.imgur.com/d5qbFQk.jpg" alt="Card image cap">
+                
+                    <!-- Card content -->
+                    <div class="card-body">
+                
+                    <!-- Title -->
+                    <h4 class="card-title"><a>Profile</a></h4>
+                    <h5 class="card-title"><a>Email:</a>{{user.email}}</h5>
+                    <!-- Text -->
+                    <p class="card-text">Uid: {{user.uid}}</p>
+                    <!-- Button -->
+                    <a href="{{ url_for('main.user_profile',id=user.id) }}?create_uid=true" class="btn btn-primary">write new uid to rfid</a>
+                    <a href="{{ url_for('main.edit_user',id=user.id) }}" class="btn btn-primary">Edit profile</a>
+                
+                    </div>
+                
+                </div>
+                <!-- Card -->
+            </div>
+        </div>
+        <div class="row">   
+            <div class="col-md-6">
+                <h3>Access Logs</h3>  
+                <table class="table">
+                    <thead class="default-color white-text">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+    
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if access_logs %}
+                        {% for log in access_logs %}
+                        <tr>
+                            <td>{{log.created_at.date()}}</td>
+                            <td>{{(log.created_at | localTime)}}</td>
+                
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No access log exists</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>       
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{super()}}
+
+{% endblock %}
